@@ -1,12 +1,23 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import FilterSection from "@/components/FilterSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-white">
+      <main className="container mx-auto py-8">
+        <div className="text-center mb-12">
+          <span className="text-xs font-medium text-filter-accent/60 tracking-wider uppercase">
+            Browse Collection
+          </span>
+          <h1 className="mt-2 text-4xl font-medium text-filter-accent">
+            Our Products
+          </h1>
+        </div>
+        <FilterSection />
+        <div className="mt-8 text-center text-sm text-filter-text/60">
+          Showing all products
+        </div>
+      </main>
     </div>
   );
 };
