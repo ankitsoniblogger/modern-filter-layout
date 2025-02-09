@@ -1,4 +1,5 @@
 
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -42,11 +43,11 @@ const cities = {
 const collegeTypes = ["Government", "Private", "Deemed", "Autonomous"];
 
 const FilterSection = () => {
-  const [selectedCategory, setSelectedCategory] = React.useState("");
-  const [selectedSubCategory, setSelectedSubCategory] = React.useState("");
-  const [selectedState, setSelectedState] = React.useState("");
-  const [selectedCity, setSelectedCity] = React.useState("");
-  const [selectedCollegeType, setSelectedCollegeType] = React.useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCollegeType, setSelectedCollegeType] = useState("");
 
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value);
@@ -161,4 +162,3 @@ const FilterSection = () => {
 };
 
 export default FilterSection;
-

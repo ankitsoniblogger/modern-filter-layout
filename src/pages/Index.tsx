@@ -1,4 +1,6 @@
 
+import FilterSection from "@/components/FilterSection";
+
 const Index = () => {
   return (
     <div className="min-h-screen bg-white">
@@ -21,4 +23,3 @@ const Index = () => {
 };
 
 export default Index;
-
