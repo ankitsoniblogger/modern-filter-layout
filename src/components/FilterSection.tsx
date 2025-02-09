@@ -7,6 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 
 const courseCategories = [
   "Engineering",
@@ -48,6 +50,14 @@ const FilterSection = () => {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCollegeType, setSelectedCollegeType] = useState("");
+  const [globalSearch, setGlobalSearch] = useState("");
+  
+  // Search states for each filter
+  const [categorySearch, setCategorySearch] = useState("");
+  const [subCategorySearch, setSubCategorySearch] = useState("");
+  const [stateSearch, setStateSearch] = useState("");
+  const [citySearch, setCitySearch] = useState("");
+  const [collegeTypeSearch, setCollegeTypeSearch] = useState("");
 
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value);
@@ -59,8 +69,29 @@ const FilterSection = () => {
     setSelectedCity(""); // Reset city when state changes
   };
 
+  // Filter functions
+  const filterItems = (items: string[], searchTerm: string) => {
+    return items.filter(item =>
+      item.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
   return (
     <div className="w-full px-4 py-6 sm:px-6 lg:px-8">
+      {/* Global Course Search */}
+      <div className="mb-8 relative">
+        <div className="relative">
+          <Input
+            type="text"
+            placeholder="Search for courses..."
+            value={globalSearch}
+            onChange={(e) => setGlobalSearch(e.target.value)}
+            className="pl-10 w-full"
+          />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+        </div>
+      </div>
+
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start">
         {/* Course Category Dropdown */}
         <div className="w-full sm:w-auto min-w-[200px]">
@@ -69,7 +100,16 @@ const FilterSection = () => {
               <SelectValue placeholder="Course Category" />
             </SelectTrigger>
             <SelectContent>
-              {courseCategories.map((category) => (
+              <div className="p-2">
+                <Input
+                  type="text"
+                  placeholder="Search categories..."
+                  value={categorySearch}
+                  onChange={(e) => setCategorySearch(e.target.value)}
+                  className="mb-2"
+                />
+              </div>
+              {filterItems(courseCategories, categorySearch).map((category) => (
                 <SelectItem key={category} value={category}>
                   {category}
                 </SelectItem>
@@ -89,14 +129,24 @@ const FilterSection = () => {
               <SelectValue placeholder="Sub Category" />
             </SelectTrigger>
             <SelectContent>
+              <div className="p-2">
+                <Input
+                  type="text"
+                  placeholder="Search sub categories..."
+                  value={subCategorySearch}
+                  onChange={(e) => setSubCategorySearch(e.target.value)}
+                  className="mb-2"
+                />
+              </div>
               {selectedCategory &&
-                subCourseCategories[selectedCategory as keyof typeof subCourseCategories].map(
-                  (subCategory) => (
-                    <SelectItem key={subCategory} value={subCategory}>
-                      {subCategory}
-                    </SelectItem>
-                  )
-                )}
+                filterItems(
+                  subCourseCategories[selectedCategory as keyof typeof subCourseCategories],
+                  subCategorySearch
+                ).map((subCategory) => (
+                  <SelectItem key={subCategory} value={subCategory}>
+                    {subCategory}
+                  </SelectItem>
+                ))}
             </SelectContent>
           </Select>
         </div>
@@ -108,7 +158,16 @@ const FilterSection = () => {
               <SelectValue placeholder="State" />
             </SelectTrigger>
             <SelectContent>
-              {states.map((state) => (
+              <div className="p-2">
+                <Input
+                  type="text"
+                  placeholder="Search states..."
+                  value={stateSearch}
+                  onChange={(e) => setStateSearch(e.target.value)}
+                  className="mb-2"
+                />
+              </div>
+              {filterItems(states, stateSearch).map((state) => (
                 <SelectItem key={state} value={state}>
                   {state}
                 </SelectItem>
@@ -128,8 +187,20 @@ const FilterSection = () => {
               <SelectValue placeholder="City" />
             </SelectTrigger>
             <SelectContent>
+              <div className="p-2">
+                <Input
+                  type="text"
+                  placeholder="Search cities..."
+                  value={citySearch}
+                  onChange={(e) => setCitySearch(e.target.value)}
+                  className="mb-2"
+                />
+              </div>
               {selectedState &&
-                cities[selectedState as keyof typeof cities].map((city) => (
+                filterItems(
+                  cities[selectedState as keyof typeof cities],
+                  citySearch
+                ).map((city) => (
                   <SelectItem key={city} value={city}>
                     {city}
                   </SelectItem>
@@ -148,7 +219,16 @@ const FilterSection = () => {
               <SelectValue placeholder="College Type" />
             </SelectTrigger>
             <SelectContent>
-              {collegeTypes.map((type) => (
+              <div className="p-2">
+                <Input
+                  type="text"
+                  placeholder="Search college types..."
+                  value={collegeTypeSearch}
+                  onChange={(e) => setCollegeTypeSearch(e.target.value)}
+                  className="mb-2"
+                />
+              </div>
+              {filterItems(collegeTypes, collegeTypeSearch).map((type) => (
                 <SelectItem key={type} value={type}>
                   {type}
                 </SelectItem>
